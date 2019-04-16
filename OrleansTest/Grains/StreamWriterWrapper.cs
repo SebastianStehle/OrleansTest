@@ -1,0 +1,72 @@
+﻿using Orleans.Serialization;
+using System;
+using System.IO;
+
+namespace OrleansTest.Grains
+{
+    internal sealed class StreamWriterWrapper : Stream
+    {
+        private readonly IBinaryTokenStreamWriter writer;
+
+        public override bool CanRead
+        {
+            get { return false; }
+        }
+
+        public override bool CanSeek
+        {
+            get { return false; }
+        }
+
+        public override bool CanWrite
+        {
+            get { return true; }
+        }
+
+        public override long Length
+        {
+            get { return writer.CurrentOffset; }
+        }
+
+        public override long Position
+        {
+            get
+            {
+                return writer.CurrentOffset;
+            }
+            set
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        public StreamWriterWrapper(IBinaryTokenStreamWriter writer)
+        {
+            this.writer = writer;
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            writer.Write(buffer, offset, count);
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            throw new NotSupportedException();
+        }
+
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            throw new NotSupportedException();
+        }
+
+        public override void SetLength(long value)
+        {
+            throw new NotSupportedException();
+        }
+    }
+}
