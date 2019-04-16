@@ -9,13 +9,26 @@ namespace OrleansTest.Grains
     {
     }
 
-    public sealed class IndexData
+    public sealed class IndexData1
     {
         public NamedContentData Data { get; set; }
     }
 
+    public sealed class IndexData2
+    {
+        public Guid ContentId { get; set; }
+
+        public NamedContentData Data { get; set; }
+
+        public bool OnlyDraft { get; set; }
+    }
+
     public interface IIndexGrain : IGrainWithGuidKey
     {
-        Task<bool> IndexAsync(Guid id, J<IndexData> data, bool onlyDraft);
+        Task<bool> Index1Async(Guid id, J<IndexData1> data, bool onlyDraft);
+
+        Task<bool> Index2Async(Guid id, IndexData1 data, bool onlyDraft);
+
+        Task<bool> Index3Async(J<IndexData2> data);
     }
 }

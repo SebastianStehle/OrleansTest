@@ -66,7 +66,14 @@ namespace OrleansTest
 
                 while (!cts.IsCancellationRequested)
                 {
-                    await grain.IndexAsync(Guid.NewGuid(), new J<IndexData>(new IndexData { Data = new NamedContentData() }), true);
+                    // Only custom serializer
+                    await grain.Index3Async(new J<IndexData2>(new IndexData2 { Data = new NamedContentData() }));
+                    
+                    // Only default serializer
+                    await grain.Index2Async(Guid.NewGuid(), new IndexData1 { Data = new NamedContentData() }, true);
+
+                    // Mixed serializers
+                    await grain.Index1Async(Guid.NewGuid(), new J<IndexData1>(new IndexData1 { Data = new NamedContentData() }), true);
 
                     await Task.Delay(1000, cts.Token);
                 }
