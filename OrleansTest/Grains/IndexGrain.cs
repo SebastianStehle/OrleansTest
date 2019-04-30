@@ -1,4 +1,5 @@
 ﻿using Orleans;
+using Squidex.Infrastructure;
 using System;
 using System.Threading.Tasks;
 
@@ -31,6 +32,13 @@ namespace OrleansTest.Grains
             await Task.Delay(100);
 
             return true;
+        }
+
+        public async Task<J<object>> ExecuteAsync(J<ICommand> data)
+        {
+            await Task.Delay(100);
+
+            throw new ValidationException("Failed to update content", new ValidationError("Image[1]", "Invalid file extension."));
         }
     }
 }
