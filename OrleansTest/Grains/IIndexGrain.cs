@@ -14,7 +14,7 @@ namespace OrleansTest.Grains
         public NamedContentData Data { get; set; }
     }
 
-    public sealed class IndexData2 : ICommand
+    public sealed class IndexData2
     {
         public Guid ContentId { get; set; }
 
@@ -25,7 +25,7 @@ namespace OrleansTest.Grains
 
     public interface IIndexGrain : IGrainWithGuidKey
     {
-        Task<J<object>> ExecuteAsync(J<ICommand> command);
+        Task<J<object>> ExecuteAsync(J<IndexData2> command);
 
         Task<bool> Index1Async(Guid id, J<IndexData1> data, bool onlyDraft);
 

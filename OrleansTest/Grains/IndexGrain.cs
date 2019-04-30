@@ -34,7 +34,7 @@ namespace OrleansTest.Grains
             return true;
         }
 
-        public async Task<J<object>> ExecuteAsync(J<ICommand> data)
+        public async Task<J<object>> ExecuteAsync(J<IndexData2> data)
         {
             await Task.Delay(100);
 

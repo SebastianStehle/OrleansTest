@@ -72,7 +72,7 @@ namespace OrleansTest
                 while (!cts.IsCancellationRequested)
                 {
                     // Throw exception.
-                    await grain.ExecuteAsync(new J<ICommand>(new IndexData2 { Data = new NamedContentData() }));
+                    await grain.ExecuteAsync(new J<IndexData2>(new IndexData2 { Data = new NamedContentData() }));
 
                     // Only custom serializer
                     await grain.Index3Async(new J<IndexData2>(new IndexData2 { Data = new NamedContentData() }));
